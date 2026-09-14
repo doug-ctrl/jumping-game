@@ -4,9 +4,18 @@ const GRAVITY = 0.6;
 const JUMP_VELOCITY = -12;
 const GROUND_Y = 0;
 
+const container = document.querySelector('.game-container');
+const OBSTACLE_SPEED = 4;
+
+const obstacleEl = document.createElement('div');
+obstacleEl.className = 'obstacle';
+container.appendChild(obstacleEl);
+
 let velocityY = 0;
 let playerBottom = GROUND_Y;
 let isJumping = false;
+
+let obstacleX = container.clientWidth;
 
 function jump() {
   if (isJumping) return;
@@ -29,8 +38,14 @@ function updatePlayer() {
   player.style.bottom = `${30 + playerBottom}px`;
 }
 
+function updateObstacle() {
+  obstacleX -= OBSTACLE_SPEED;
+  obstacleEl.style.left = `${obstacleX}px`;
+}
+
 function loop() {
   updatePlayer();
+  updateObstacle()
   requestAnimationFrame(loop);
 }
 
