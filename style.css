@@ -28,3 +28,12 @@
   background: #2e2a26;
   border-radius: 6px 6px 3px 3px;
 }
+
+.obstacle {
+  position: absolute;
+  bottom: 30px;
+  width: 20px;
+  height: 34px;
+  background: #3f6b2d;
+  border-radius: 3px 3px 0 0;
+}
