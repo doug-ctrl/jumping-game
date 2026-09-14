@@ -7,19 +7,27 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="game-container">
-      <div class="player"></div>
-      <div class="ground"></div>
+    <div class="game-wrapper">
+      <h1>Jump the Cactus 🌵</h1>
 
-      <div class="game-over" class="hidden">
-        <p>Game Over!</p>
-        <div class="score">Score: 0</div>
-        <button id="restart-btn">Restart</button>
+      <div class="score-board">Score: 0 High Score: 0</div>
+      <div class="game-container">
+        <div class="player"></div>
+        <div class="ground"></div>
+
+        <div class="game-over" class="hidden">
+          <p>Game Over!</p>
+          <div class="score">Score: 0</div>
+          <button id="restart-btn">Restart</button>
+        </div>
+        <div id="start-screen">
+          <p>Press SPACE or click Start to jump!</p>
+          <button id="start-btn">Start Game</button>
+        </div>
       </div>
-      <div id="start-screen">
-        <p>Press SPACE or click Start to jump!</p>
-        <button id="start-btn">Start Game</button>
-      </div>
+      <p class="instructions">
+        Press <strong>Spacebar</strong> or <strong>Up Arrow</strong> to jump
+      </p>
     </div>
 
     <script src="script.js"></script>
