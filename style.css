@@ -1,0 +1,30 @@
+.game-container {
+  position: relative;
+  width: 640px;
+  max-width: 92vw;
+  height: 260px;
+  overflow: hidden;
+  border: 3px solid #1f2937;
+  border-radius: 10px;
+  background: linear-gradient(to bottom, #cfe8f3, #eef8fb 70%);
+}
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30px;
+  background: #5b4636;
+  border-top: 4px solid #7a9e5c;
+}
+
+.player {
+  position: absolute;
+  left: 40px;
+  bottom: 30px;
+  width: 34px;
+  height: 34px;
+  background: #2e2a26;
+  border-radius: 6px 6px 3px 3px;
+}
