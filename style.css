@@ -45,6 +45,10 @@ body {
   border-radius: 6px 6px 3px 3px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .obstacle {
   position: absolute;
   bottom: 30px;
