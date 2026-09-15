@@ -18,7 +18,9 @@ const JUMP_VELOCITY = -12
 const GROUND_Y = 0
 
 const container = document.querySelector('.game-container')
-const OBSTACLE_SPEED = 4
+let obstacleSpeed = 4
+const MAX_OBSTACLE_SPEED = 12
+const SPEED_INCREMENT = 0.001
 
 const obstacleEl = document.createElement('div')
 obstacleEl.className = 'obstacle'
@@ -55,7 +57,7 @@ function updatePlayer() {
 }
 
 function updateObstacle() {
-  obstacleX -= OBSTACLE_SPEED
+  obstacleX -= obstacleSpeed
 
   const playerLeft = player.getBoundingClientRect().left - container.getBoundingClientRect().left
 
@@ -70,8 +72,13 @@ function updateObstacle() {
     obstaclePassed = false
   }
 
+  if (obstacleSpeed < MAX_OBSTACLE_SPEED) {
+    obstacleSpeed += SPEED_INCREMENT
+  }
+
   obstacleEl.style.left = `${obstacleX}px`
 }
+
 
 function checkCollision() {
   const playerRect = player.getBoundingClientRect()
@@ -120,6 +127,7 @@ function resetGame() {
   isJumping = false
   obstaclePassed = false
   player.style.bottom = `${30 + GROUND_Y}px`
+  obstacleSpeed = 4
 
   gameOver.classList.add('hidden')
   gameRunning = true
