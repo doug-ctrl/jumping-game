@@ -24,6 +24,8 @@ const MIN_OBSTACLE_HEIGHT = 24
 const MAX_OBSTACLE_HEIGHT = 50
 const SPEED_INCREMENT = 0.001
 
+const OBSTACLE_COLORS = ['#3f6b2d', '#8b4513', '#4a4a8a', '#a0453e']
+
 const obstacleEl = document.createElement('div')
 obstacleEl.className = 'obstacle'
 container.appendChild(obstacleEl)
@@ -33,7 +35,13 @@ function randomizeObstacleHeight() {
   obstacleEl.style.height = `${height}px`
 }
 
+function randomizeObstacleColor() {
+  const color = OBSTACLE_COLORS[Math.floor(Math.random() * OBSTACLE_COLORS.length)]
+  obstacleEl.style.backgroundColor = color
+}
+
 randomizeObstacleHeight()
+randomizeObstacleColor()
 
 let velocityY = 0
 let playerBottom = GROUND_Y
@@ -80,6 +88,7 @@ function updateObstacle() {
     obstacleX = container.clientWidth + Math.random() * 300
     obstaclePassed = false
     randomizeObstacleHeight()
+    randomizeObstacleColor()
   }
 
   if (obstacleSpeed < MAX_OBSTACLE_SPEED) {
