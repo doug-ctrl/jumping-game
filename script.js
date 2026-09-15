@@ -63,6 +63,14 @@ function loop() {
   requestAnimationFrame(loop)
 }
 
+function startGame() {
+  gameRunning = true
+  startScreen.classList.add('hidden')
+  requestAnimationFrame(loop)
+}
+
+startBtn.addEventListener('click', startGame)
+
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space' || e.code === 'ArrowUp') {
     e.preventDefault()
