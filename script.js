@@ -20,11 +20,20 @@ const GROUND_Y = 0
 const container = document.querySelector('.game-container')
 let obstacleSpeed = 4
 const MAX_OBSTACLE_SPEED = 12
+const MIN_OBSTACLE_HEIGHT = 24
+const MAX_OBSTACLE_HEIGHT = 50
 const SPEED_INCREMENT = 0.001
 
 const obstacleEl = document.createElement('div')
 obstacleEl.className = 'obstacle'
 container.appendChild(obstacleEl)
+
+function randomizeObstacleHeight() {
+  const height = Math.floor(Math.random() * (MAX_OBSTACLE_HEIGHT - MIN_OBSTACLE_HEIGHT + 1)) + MIN_OBSTACLE_HEIGHT
+  obstacleEl.style.height = `${height}px`
+}
+
+randomizeObstacleHeight()
 
 let velocityY = 0
 let playerBottom = GROUND_Y
@@ -70,6 +79,7 @@ function updateObstacle() {
   if (obstacleX < -20) {
     obstacleX = container.clientWidth + Math.random() * 300
     obstaclePassed = false
+    randomizeObstacleHeight()
   }
 
   if (obstacleSpeed < MAX_OBSTACLE_SPEED) {
