@@ -36,7 +36,7 @@ let obstacleX = container.clientWidth
 let obstaclePassed = false
 
 function jump() {
-  if (isJumping) return
+  if (!gameRunning || isJumping) return
   isJumping = true
   velocityY = JUMP_VELOCITY
 }
