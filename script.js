@@ -78,4 +78,3 @@ document.addEventListener('keydown', (e) => {
   }
 })
 
-requestAnimationFrame(loop)
