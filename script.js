@@ -29,10 +29,9 @@ let playerBottom = GROUND_Y
 let isJumping = false
 let gameRunning = false
 let score = 0
-let lastScoreTime = 0
-const SCORE_INTERVAL = 100
 
 let obstacleX = container.clientWidth
+let obstaclePassed = false
 
 function jump() {
   if (isJumping) return
@@ -58,8 +57,17 @@ function updatePlayer() {
 function updateObstacle() {
   obstacleX -= OBSTACLE_SPEED
 
+  const playerLeft = player.getBoundingClientRect().left - container.getBoundingClientRect().left
+
+  if (!obstaclePassed && obstacleX + 20 < playerLeft) {
+    score++
+    scoreEl.textContent = score
+    obstaclePassed = true
+  }
+
   if (obstacleX < -20) {
     obstacleX = container.clientWidth + Math.random() * 300
+    obstaclePassed = false
   }
 
   obstacleEl.style.left = `${obstacleX}px`
@@ -86,12 +94,6 @@ function loop(timestamp) {
   updatePlayer()
   updateObstacle()
 
-  if (timestamp - lastScoreTime > SCORE_INTERVAL) {
-    score++
-    scoreEl.textContent = score
-    lastScoreTime = timestamp
-  }
-
   if (checkCollision()) {
     endGame()
     return
@@ -104,7 +106,6 @@ function loop(timestamp) {
 function startGame() {
   gameRunning = true
   startScreen.classList.add('hidden')
-  lastScoreTime = 0
   requestAnimationFrame(loop)
 }
 
@@ -112,12 +113,12 @@ startBtn.addEventListener('click', startGame)
 
 function resetGame() {
   score = 0
-  lastScoreTime = 0
   scoreEl.textContent = score
   obstacleX = container.clientWidth
   playerBottom = GROUND_Y
   velocityY = 0
   isJumping = false
+  obstaclePassed = false
   player.style.bottom = `${30 + GROUND_Y}px`
 
   gameOver.classList.add('hidden')
