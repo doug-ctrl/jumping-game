@@ -28,6 +28,7 @@ let velocityY = 0
 let playerBottom = GROUND_Y
 let isJumping = false
 let gameRunning = false
+let score = 0
 
 let obstacleX = container.clientWidth
 
@@ -54,12 +55,42 @@ function updatePlayer() {
 
 function updateObstacle() {
   obstacleX -= OBSTACLE_SPEED
+
+  if (obstacleX < -20) {
+    obstacleX = container.clientWidth + Math.random() * 300
+  }
+
   obstacleEl.style.left = `${obstacleX}px`
 }
 
+function checkCollision() {
+  const playerRect = player.getBoundingClientRect()
+  const obstacleRect = obstacleEl.getBoundingClientRect()
+
+  if (
+    playerRect.left < obstacleRect.right &&
+    playerRect.right > obstacleRect.left &&
+    playerRect.top < obstacleRect.bottom &&
+    playerRect.bottom > obstacleRect.top
+  ) {
+    return true
+  }
+  return false
+}
+
 function loop() {
+  if (!gameRunning) return
+
   updatePlayer()
   updateObstacle()
+  score++
+  scoreEl.textContent = score
+
+  if (checkCollision()) {
+    endGame()
+    return
+  }
+
   requestAnimationFrame(loop)
 }
 
@@ -71,10 +102,34 @@ function startGame() {
 
 startBtn.addEventListener('click', startGame)
 
+function resetGame() {
+  score = 0
+  scoreEl.textContent = score
+  obstacleX = container.clientWidth
+  playerBottom = GROUND_Y
+  velocityY = 0
+  isJumping = false
+  player.style.bottom = `${30 + GROUND_Y}px`
+
+  gameOver.classList.add('hidden')
+  gameRunning = true
+  requestAnimationFrame(loop)
+}
+
+restartBtn.addEventListener('click', resetGame)
+
+function endGame() {
+  if (score > parseInt(highScoreEl.textContent)) {
+    highScoreEl.textContent = score
+  }
+  gameRunning = false
+  gameOver.classList.remove('hidden')
+  finalScoreEl.textContent = `Final Score: ${score}`
+}
+
 document.addEventListener('keydown', (e) => {
   if (e.code === 'Space' || e.code === 'ArrowUp') {
     e.preventDefault()
     jump()
   }
 })
-
