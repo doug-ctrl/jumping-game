@@ -29,6 +29,8 @@ let playerBottom = GROUND_Y
 let isJumping = false
 let gameRunning = false
 let score = 0
+let lastScoreTime = 0
+const SCORE_INTERVAL = 100
 
 let obstacleX = container.clientWidth
 
@@ -78,13 +80,17 @@ function checkCollision() {
   return false
 }
 
-function loop() {
+function loop(timestamp) {
   if (!gameRunning) return
 
   updatePlayer()
   updateObstacle()
-  score++
-  scoreEl.textContent = score
+
+  if (timestamp - lastScoreTime > SCORE_INTERVAL) {
+    score++
+    scoreEl.textContent = score
+    lastScoreTime = timestamp
+  }
 
   if (checkCollision()) {
     endGame()
@@ -94,9 +100,11 @@ function loop() {
   requestAnimationFrame(loop)
 }
 
+
 function startGame() {
   gameRunning = true
   startScreen.classList.add('hidden')
+  lastScoreTime = 0
   requestAnimationFrame(loop)
 }
 
@@ -104,6 +112,7 @@ startBtn.addEventListener('click', startGame)
 
 function resetGame() {
   score = 0
+  lastScoreTime = 0
   scoreEl.textContent = score
   obstacleX = container.clientWidth
   playerBottom = GROUND_Y
